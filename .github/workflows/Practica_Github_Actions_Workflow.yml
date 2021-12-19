@@ -1,0 +1,14 @@
+name: Github Actions 
+on: [push]
+jobs:
+  Linter_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Dependencies 
+        run: npm install
+      
+      - name: Init Linter
+        run: npm run lint
