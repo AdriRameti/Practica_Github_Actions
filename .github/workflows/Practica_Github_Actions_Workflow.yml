@@ -38,3 +38,35 @@ jobs:
         with:
           name: result.txt
           path: result.txt
+  Add_badge_job:
+    runs-on: ubuntu-latest
+    if: always()
+    needs: Cypress_job
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      
+      - name: Download Changes Of Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: result.txt
+      
+      - name: Create Output Based In The Artifact
+        id: my-cypress-test
+        run: echo "::set-output name=cypress_outcome::$(cat result.txt)"
+      
+      - name: Create Badge Of Result
+        uses: ./.github/actions/badge/
+        id: readme
+        with:
+          cypress: ${{ steps.my-cypress-test.outputs.cypress_outcome }}
+      
+      - name: Upload The Changes In The Readme
+        run: | 
+            git config user.email "adrirameti.actions@github.com"
+            git config user.name "AdriRametiGHActions"
+            git pull
+            git add .
+            git commit --allow-empty -m "Readme" 
+            git remote set-url origin https://AdriRameti:${{ secrets.GH_ACTIONS_TOKEN }}@github.com/AdriRameti/Practica_Github_Actions.git
+            git push
