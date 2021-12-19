@@ -59,7 +59,7 @@ jobs:
         uses: ./.github/actions/badge/
         id: readme
         with:
-          cypress: ${{ steps.my-cypress-test.outputs.cypress_outcome }}
+          my-cypress-test: ${{ steps.my-cypress-test.outputs.cypress_outcome }}
       
       - name: Upload The Changes In The Readme
         run: | 
@@ -82,6 +82,6 @@ jobs:
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           github-token: ${{ secrets.GH_ACTIONS_TOKEN }}
-          vercel-org-id: ${{ secrets.ORG_ID}}
-          vercel-project-id: ${{ secrets.PROJECT_ID}}
+          vercel-org-id: ${{ secrets.ORG_ID }}
+          vercel-project-id: ${{ secrets.PROJECT_ID }}
           working-directory: ./
