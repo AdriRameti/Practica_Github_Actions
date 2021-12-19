@@ -12,3 +12,29 @@ jobs:
       
       - name: Init Linter
         run: npm run lint
+  Cypress_job:
+    runs-on: ubuntu-latest
+    needs: Linter_job
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      
+      - name: Run Cypress Job
+        id: my-cypress-test
+        uses: cypress-io/github-action@v2
+        continue-on-error: true
+        with:
+          config-file: cypress.json
+          build: npm run build
+          start: npm start
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_TOKEN }}
+
+      - name: Save Test Results
+        run: echo ${{ steps.my-cypress-test.outcome }} > result.txt
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: result.txt
+          path: result.txt
