@@ -8,6 +8,7 @@ async function new_badge() {
     let badge;
     console.log(outcome, (outcome == 'success'));
     if (outcome == 'success') {
+        console.log('Entra success');
         badge = '![badge-success](https://img.shields.io/badge/tested%20with-Cypress-04C38E.svg)'
     } else {
         badge = '![badge-failure](https://img.shields.io/badge/test-failure-red)'
