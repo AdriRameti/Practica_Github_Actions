@@ -63,7 +63,7 @@ jobs:
       
       - name: Upload The Changes In The Readme
         run: | 
-            git config user.email "adrirameti.actions@github.com"
+            git config user.email "adri7agu@gmail.com"
             git config user.name "AdriRameti"
             git pull
             git add .
